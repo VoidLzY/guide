@@ -1,4 +1,6 @@
-
+/**
+ * scrollview的drawCall优化
+ */
 
 cc.Class({
     extends: cc.Component,

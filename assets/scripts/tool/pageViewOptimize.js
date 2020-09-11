@@ -1,7 +1,7 @@
 /**
  * 20/9/11 林懿
  * 使用姿势:
- * 1、创建一个pageView后把pageView组件删了，根据需求调整content和item,在pageview中添加
+ * 1、创建一个pageView后把pageView组件删了，根据需求调整content和item，添加touch节点，大小覆盖整个pageviews
  * 2、继承该脚本后，必须绑定itemWidth
  * 3、使用时调用init 、pageInit，或根据需求使用相应脚本
  */
@@ -34,9 +34,9 @@ cc.Class({
     // onLoad () {},
 
     start() {
-        this.init()
-        this.pageInit(this.itemInit, [0, 1,2,3])
-        this.touchListen()
+        // this.init()
+        // this.pageInit(this.itemInit, [0, 1])
+        // this.touchListen()
     },
 
     // update (dt) {},
@@ -102,13 +102,13 @@ cc.Class({
         if (this.pageGrp && this.pageGrp.length != 0) {
             let next = this.indexNext()
             if (next != -1) {
-                this.itemFunc(2, next)
+                this.itemFunc(2, this.pageGrp[next])
             }
             let pre = this.indexPre()
             if (pre != -1) {
-                this.itemFunc(0, pre)
+                this.itemFunc(0, this.pageGrp[pre])
             }
-            this.itemFunc(1, this.pageIndex)
+            this.itemFunc(1, this.pageGrp[this.pageIndex])
         } else {
             console.log('传入数据有误')
         }
@@ -194,9 +194,9 @@ cc.Class({
                 .to(this.moveTime, { x: (this.originX + this.itemWidth) })
                 .call(() => {
                     this.content.x = this.originX
-                    this.itemFunc(0, this.indexPre())
-                    this.itemFunc(1, this.pageIndex)
-                    this.itemFunc(2, this.indexNext())
+                    this.itemFunc(0, this.pageGrp[this.indexPre()])
+                    this.itemFunc(1, this.pageGrp[this.pageIndex])
+                    this.itemFunc(2, this.pageGrp[this.indexNext()])
                     this.isMoveing = false
                 })
                 .start()
@@ -225,9 +225,9 @@ cc.Class({
                 .to(this.moveTime, { x: (this.originX - this.itemWidth) })
                 .call(() => {
                     this.content.x = this.originX
-                    this.itemFunc(0, this.indexPre())
-                    this.itemFunc(1, this.pageIndex)
-                    this.itemFunc(2, this.indexNext())
+                    this.itemFunc(0, this.pageGrp[this.indexPre()])
+                    this.itemFunc(1, this.pageGrp[this.pageIndex])
+                    this.itemFunc(2, this.pageGrp[this.indexNext()])
                     this.isMoveing = false
                 })
                 .start()

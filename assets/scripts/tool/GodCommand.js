@@ -63,19 +63,23 @@ let GodCommand = {
                     //点击确认
 
                     node.once(cc.Node.EventType.TOUCH_START, (event) => {
+                        console.log('1111')
                         godGuide.node._touchListener.setSwallowTouches(false);
                     }, godGuide);
                     node.once(cc.Node.EventType.TOUCH_END, (event) => {
+                        console.log('2222')
                         if (endNode.getBoundingBoxToWorld().contains(event.getLocation())) {
                             node.targetOff(godGuide)
                             callback('go');
                         } else {
                             godGuide.node._touchListener.setSwallowTouches(false);
+                            node.targetOff(godGuide)
                             callback('again')
                         }
                     }, godGuide);
                     node.once(cc.Node.EventType.TOUCH_CANCEL, (event) => {
                         godGuide.node._touchListener.setSwallowTouches(false);
+                        node.targetOff(godGuide)
                         callback('again')
                     }, godGuide);
 
